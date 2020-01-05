@@ -6,6 +6,22 @@ const _ = require('lodash')
 
 app.use(cors())
 
+const swagger = require("./swagger.js");
+
+app.use("/swagger", swagger.router);
+
+/**
+ * @swagger
+ * /api/getRandomCards:
+ *   get:
+ *     tags:
+ *       - Cards
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Deck
+ */
 app.get('/api/getRandomCards', (req, res) => {
 	const getDeckIdUrl = 'https://deckofcardsapi.com/api/deck/new/shuffle/?deck_count=1';
 	request(getDeckIdUrl, { json: true }, (err, response, body) => {
